@@ -3,7 +3,7 @@
 
 > Colors which render a beautiful language distinction.
 
-Inspirited by [@ozh](https://github.com/ozh)' cool [github-colors](https://github.com/ozh/github-colors) tool.
+Inspired by [@ozh](https://github.com/ozh)' cool [github-colors](https://github.com/ozh/github-colors) tool.
 
 How it works
 ------------
