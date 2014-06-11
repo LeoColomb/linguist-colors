@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Linguist Colors</title>
+  <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="//brick.a.ssl.fastly.net/Source+Sans+Pro:600">
+  <style>
+    html, body {
+      font-family: 'Source Sans Pro';
+    }
+
+    .head {
+      margin-top:50px;
+      margin-bottom:80px;
+        color: #aa759f;
+    }
+
+      .head a {
+        color: #6a9fb5;
+      }
+      .head a:hover, .head a:active {
+        color: #75b5aa;
+      }
+
+    .jumbotron {
+      background-color: #f4bf75;
+    }
+
+    .color-type {
+      border-radius: 6px;
+      padding: 50px 0;
+      margin: 20px;
+    }
+
+      .color-type h3 {
+        text-align: center;
+        color: #fff;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+    #no-colors .color-type {
+      padding: 20px 0;
+      font-size: small;
+    }
+  </style>
+</head>
+<body>
+  <div class="jumbotron text-center">
+    <div class="container">
+      <div class="head">
+        <h1>Linguist Colors</h1>
+        <p class="lead">
+          Colors which render a beautiful language distinction.<br />
+          From <a href="https://github.com/github/linguist">Linguist</a>, used on and by <a href="https://github.com">GitHub</a>.
+        </p>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+          <input type="text" id="search" class="form-control input-lg" placeholder="Search" autofocus />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="colors row" id="colors"></div>
+    <hr />
+    <div class="colors row" id="no-colors"></div>
+  </div>
+  <script src="//code.jquery.com/jquery-2.1.0.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/js-yaml/3.0.2/js-yaml.min.js"></script>
+  <script src="//cdn.rawgit.com/dodo/node-slug/master/slug.js"></script>
+  <script>
+    $.get("https://cdn.rawgit.com/github/linguist/master/lib/linguist/languages.yml", function (data) {
+      $.each(jsyaml.load(data), function (key, val) {
+        $("<div id='" + slug(key).toLowerCase() + "'" + (val.type ? " data-type='" + val.type + "'" : "") + (val.search_term ? " data-search='" + val.search_term + "'" : "") +
+            " class='color col-lg-3 col-md-4 col-sm-6'><div class='color-type' style='background-color: " + (val.color ? val.color : "#000") + ";'><h3>" + key + "</h3></div></div>").appendTo(val.color ? "#colors" : "#no-colors");
+      });
+    });
+    $("#search").bind('input', function () {
+      var search = slug($("#search").val());
+      $(".color").each(function (key) {
+        if ($(this).attr("id").indexOf(search) >= 0) {
+          $(this).show();
+        } else if ($(this).data("search") && $(this).data("search").indexOf(search) >= 0) {
+          $(this).show();
+        } else {
+          $(this).hide();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
