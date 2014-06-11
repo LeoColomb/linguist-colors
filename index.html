@@ -11,17 +11,18 @@
     }
 
     .head {
-      margin-top:50px;
-      margin-bottom:80px;
-        color: #aa759f;
+      margin-top: 50px;
+      margin-bottom: 80px;
+      color: #aa759f;
     }
 
       .head a {
         color: #6a9fb5;
       }
-      .head a:hover, .head a:active {
-        color: #75b5aa;
-      }
+
+        .head a:hover, .head a:active {
+          color: #75b5aa;
+        }
 
     .jumbotron {
       background-color: #f4bf75;
@@ -74,12 +75,22 @@
   <script>
     $.get("https://cdn.rawgit.com/github/linguist/master/lib/linguist/languages.yml", function (data) {
       $.each(jsyaml.load(data), function (key, val) {
-        $("<div id='" + slug(key).toLowerCase() + "'" + (val.type ? " data-type='" + val.type + "'" : "") + (val.search_term ? " data-search='" + val.search_term + "'" : "") +
-            " class='color col-lg-3 col-md-4 col-sm-6'><div class='color-type' style='background-color: " + (val.color ? val.color : "#000") + ";'><h3>" + key + "</h3></div></div>").appendTo(val.color ? "#colors" : "#no-colors");
+        $("<div></div>")
+          .attr("id", slug(key).toLowerCase())
+          .addClass("color col-lg-3 col-md-4 col-sm-6")
+          .data("type", val.type)
+          .data("search", val.search_term)
+          .prepend(
+            $("<div></div>")
+              .addClass("color-type")
+              .css("background-color", val.color ? val.color : "#ccc")
+              .prepend("<h3>" + key + "</h3>")
+          )
+          .appendTo(val.color ? "#colors" : "#no-colors");
       });
     });
     $("#search").bind('input', function () {
-      var search = slug($("#search").val());
+      var search = slug($("#search").val()).toLowerCase();
       $(".color").each(function (key) {
         if ($(this).attr("id").indexOf(search) >= 0) {
           $(this).show();
