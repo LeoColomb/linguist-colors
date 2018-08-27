@@ -5,12 +5,7 @@
   <title>Linguist Colors</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="//brick.a.ssl.fastly.net/Source+Sans+Pro:200">
   <style>
-    html, body {
-      font-family: 'Source Sans Pro';
-    }
-
     .head {
       margin-top: 50px;
       margin-bottom: 80px;
@@ -73,14 +68,16 @@
         for (let language in data) {
           if (data.hasOwnProperty(language)) {
             $(`
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-              <div class="card color" id="${data[language].ace_mode}"
-                data-type="${data[language].type}" data-search="${data[language].ace_mode}">
-                <div class="card-img-top color-type" style="background-color: ${data[language].color ? data[language].color : '#ccc'}"></div>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" id="${data[language].ace_mode}">
+              <div class="card color" data-type="${data[language].type}" data-search="${data[language].ace_mode}">
+                <div class="card-img-top color-type pl-1" style="background-color: ${data[language].color ? data[language].color : '#ccc'}">
+                  <p class="badge badge-dark">${data[language].color}</p>
+                </div>
                 <div class="card-body">
                   <h5 class="card-title">${language}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">${data[language].type}</h6>
                   <p class="card-text"><code>${data[language].extensions ? data[language].extensions.join('</code> <code>'): ''}</code></p>
-                  <a href="https://github.com/search?q=language%3A${language}" class="btn btn-primary">Repo on GitHub</a>
+                  <a href='https://github.com/search?q=language%3A"${language}"' class="card-link">Repo on GitHub</a>
                 </div>
               </div>
             </div>
