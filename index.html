@@ -54,8 +54,8 @@
         <iframe src="https://ghbtns.com/github-btn.html?user=LeoColomb&repo=linguist-colors&type=watch"
                 allowtransparency="true" frameborder="0" scrolling="0" width="62" height="20"></iframe>
       </div>
-      <div class="row">
-        <div class="col-sm-4 col-sm-offset-4">
+      <div class="row justify-content-md-center">
+        <div class="col-sm-4">
           <input type="text" id="search" class="form-control input-lg" placeholder="Search" autofocus />
         </div>
       </div>
@@ -86,6 +86,7 @@
                    <a href="https://github.com/search?q=language%3A${key}" class="btn btn-primary">Repo on GitHub</a>
                  </div>
                </div>`)
+          )
           .appendTo(val.color ? "#colors" : "#no-colors");
       });
     });
