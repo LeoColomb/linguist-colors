@@ -70,26 +70,23 @@
   <script src="https://unpkg.com/js-yaml@3.12.0/dist/js-yaml.min.js"></script>
   <script src="https://unpkg.com/slug@0.9.1/slug.js"></script>
   <script>
-    $.get("https://cdn.rawgit.com/github/linguist/master/lib/linguist/languages.yml", function (data) {
-      $.each(jsyaml.load(data), function (key, val) {
-        $("<div></div>")
-          .attr("id", slug(key).toLowerCase())
-          .addClass("color col-lg-3 col-md-4 col-sm-6")
-          .data("type", val.type)
-          .data("search", val.search_term)
-          .prepend(
-            $(`<div class="card">
-                 <div class="card-img-top color-type" style="background-color: ${val.color ? val.color : '#ccc'}"></div>
-                 <div class="card-body">
-                   <h5 class="card-title">${key}</h5>
-                   <p class="card-text"><code>${val.extensions.join('</code> <code>')}</code></p>
-                   <a href="https://github.com/search?q=language%3A${key}" class="btn btn-primary">Repo on GitHub</a>
-                 </div>
-               </div>`)
-          )
-          .appendTo(val.color ? "#colors" : "#no-colors");
-      });
-    });
+    fetch('https://cdn.rawgit.com/github/linguist/master/lib/linguist/languages.yml')
+      .then(yaml => jsyaml.load(yaml))
+      .then(data => {
+        for (let language, attributes of data) {
+          $(`
+          <div class="card color" id="${slug(language).toLowerCase()}"
+            data-type="${attributes.type}" data-search="${attributes.search_term}">
+            <div class="card-img-top color-type" style="background-color: ${attributes.color ? attributes.color : '#ccc'}"></div>
+            <div class="card-body">
+              <h5 class="card-title">${language}</h5>
+              <p class="card-text"><code>${attributes.extensions.join('</code> <code>')}</code></p>
+              <a href="https://github.com/search?q=language%3A${language}" class="btn btn-primary">Repo on GitHub</a>
+            </div>
+          </div>
+          `).appendTo(val.color ? "#colors" : "#no-colors");
+        }
+      })
     $("#search").bind('input', function () {
       var search = slug($("#search").val()).toLowerCase();
       $(".color").each(function (key) {
