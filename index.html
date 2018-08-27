@@ -71,7 +71,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6 mb-4 color" id="${data[language].ace_mode}">
               <div class="card" data-type="${data[language].type}" data-search="${data[language].ace_mode}">
                 <div class="card-img-top color-type pl-1" style="background-color: ${data[language].color ? data[language].color : '#ccc'}">
-                  <p class="badge badge-dark">${data[language].color}</p>
+                  <p class="badge badge-dark">${data[language].color || ''}</p>
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">${language}</h5>
